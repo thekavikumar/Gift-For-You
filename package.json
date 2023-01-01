@@ -42,7 +42,13 @@
     ]
   },
   "dependencies": {
+    "@hashgraph/sdk": "^2.19.1",
+    "dotenv": "^16.0.3",
+    "ethers": "^5.7.2",
+    "hardhat": "^2.12.5",
     "react-particles": "^2.7.1",
-    "tsparticles": "^2.7.1"
+    "truffle": "^5.7.1",
+    "tsparticles": "^2.7.1",
+    "web3": "^1.8.1"
   }
 }
