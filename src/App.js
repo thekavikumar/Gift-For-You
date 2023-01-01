@@ -1,4 +1,6 @@
+import { ethers } from "ethers";
 import React from "react";
+import { useState } from "react";
 import ShoppingCard from "./ShoppingCard";
 import { CoolNavbar } from "simple-ui-devstuff";
 import "./App.css";
@@ -6,21 +8,49 @@ import { useCallback } from "react";
 import Particles from "react-particles";
 import { loadFull } from "tsparticles";
 
+
 function App() {
+    const [data, setdata] = useState({
+    address:'',    // Stores address
+    Balance: null  // Stores balance
+  })
+
   const particlesInit = useCallback(async (engine) => {
     console.log(engine);
-    // you can initiate the tsParticles instance (engine) here, adding custom shapes or presets
-    // this loads the tsparticles package bundle, it's the easiest method for getting everything ready
-    // starting from v2 you can add only the features you need reducing the bundle size
     await loadFull(engine);
   }, []);
 
   const particlesLoaded = useCallback(async (container) => {
     await console.log(container);
   }, []);
-  const Click = () => {
-    alert("You clicked the button!");
-  };
+const Click=async()=>{
+  if(window.ethereum){
+      // Do something 
+    }else{
+      alert("install metamask extension!!")
+    }
+    window.ethereum.request({method:'eth_requestAccounts'})
+.then(res=>{
+        // Return the address of the wallet
+        console.log(res) 
+})
+window.ethereum.request({
+    method:'eth_getBalance', 
+    params: ["0x3F0d82c9654F6056b8F4B9D460D1183337C8acc2", 'latest']
+}).then(balance => {
+    // Return string value to convert it into int balance
+    console.log(balance) 
+      
+    // Yarn add ethers for using ethers utils or
+    // npm install ethers
+    console.log(ethers.utils.formatEther(balance))
+    // Format the string into main latest balance
+})
+
+
+
+}
+
   const navItems = [
     ["Home", "/"],
     ["About", "/"],
@@ -606,7 +636,7 @@ function App() {
           },
         }}
       />
-      <CoolNavbar title="New Year" navItems={navItems} btnTitle="🛒" />
+      <CoolNavbar title="+91-Gift-For-You" navItems={navItems} btnTitle="🛒" />
       <div className="grid">
         <ShoppingCard
           title="Sun Glasses"
